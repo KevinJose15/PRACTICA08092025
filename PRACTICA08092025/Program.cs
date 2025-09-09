@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PRACTICA08092025.Interfaces;
+using PRACTICA08092025.Servicios;
 using System.Text;
 
-var builder = WebApplication.CreateBuilder(args);        
+var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 // Configuración EF Core
 builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
 {
@@ -19,9 +19,13 @@ builder.Services.AddDbContext<AppDbContext>((serviceProvider, options) =>
     options.EnableDetailedErrors();
 });
 
-// Inyección
+// Inyección de dependencias
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IAuthService, AuthRepository>();
+
+// Categoria
+builder.Services.AddScoped<ICategoriaKMRepository, CategoriaKMRepository>();
+builder.Services.AddScoped<ICategoriaKMService, CategoriaKMService>();
 
 // JWT
 builder.Services.AddAuthentication("Bearer")
@@ -39,14 +43,14 @@ builder.Services.AddAuthentication("Bearer")
                 Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
+
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "AuthService API", Version = "v1" });
 
-    // Configuración JWT
+    // Configuración JWT en Swagger
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "Ingrese 'Bearer' seguido de un espacio y su token JWT",
@@ -77,7 +81,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -86,6 +90,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();   // <-- agregado
 app.UseAuthorization();
 
 app.MapControllers();
