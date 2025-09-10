@@ -31,7 +31,7 @@ namespace PRACTICA08092025.Servicios
 
         public async Task<CategoriaResponseKMDTO> CreateAsync(CategoriaCreateKMDTO dto)
         {
-            var entity = new CategoriaKM { Nombre = dto.Nombre.Trim(), Descripcion = dto.Descripcion.Trim() };
+            var entity = new Categoriaskm { Nombre = dto.Nombre.Trim(), Descripcion = dto.Descripcion.Trim() };
             var saved = await _repo.AddAsync(entity);
             return new CategoriaResponseKMDTO { Id = saved.Id, Nombre = saved.Nombre, Descripcion = saved.Descripcion };
         }

@@ -14,7 +14,7 @@ namespace AuthApi.Repositorios
         public DbSet<Rol> Roles { get; set; }
 
         // 👇 Corrección: ahora es un DbSet de CategoriaKM
-        public DbSet<CategoriaKM> Categorias { get; set; }
+        public DbSet<Categoriaskm> Categorias { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,7 @@ namespace AuthApi.Repositorios
                 .HasForeignKey(u => u.RolId);
 
             // Mapear CategoriaKM a la tabla en la BD
-            modelBuilder.Entity<CategoriaKM>().ToTable("CategoriaKM");
+            modelBuilder.Entity<Categoriaskm>().ToTable("Categoriaskm");
         }
     }
 }

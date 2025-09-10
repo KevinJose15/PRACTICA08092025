@@ -4,10 +4,10 @@ namespace PRACTICA08092025.Interfaces
 {
     public interface ICategoriaKMRepository
     {
-        Task<List<CategoriaKM>> GetAllAsync();
-        Task<CategoriaKM?> GetByIdAsync(int id);
-        Task<CategoriaKM> AddAsync(CategoriaKM entity);
-        Task<bool> UpdateAsync(CategoriaKM entity);
+        Task<List<Categoriaskm>> GetAllAsync();
+        Task<Categoriaskm?> GetByIdAsync(int id);
+        Task<Categoriaskm> AddAsync(Categoriaskm entity);
+        Task<bool> UpdateAsync(Categoriaskm entity);
         Task<bool> DeleteAsync(int id);
     }
 }

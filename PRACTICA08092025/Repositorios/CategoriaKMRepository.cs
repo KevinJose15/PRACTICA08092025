@@ -13,20 +13,20 @@ namespace AuthApi.Repositorios
             _context = context;
         }
 
-        public async Task<List<CategoriaKM>> GetAllAsync()
+        public async Task<List<Categoriaskm>> GetAllAsync()
             => await _context.Categorias.AsNoTracking().ToListAsync();
 
-        public async Task<CategoriaKM?> GetByIdAsync(int id)
+        public async Task<Categoriaskm?> GetByIdAsync(int id)
             => await _context.Categorias.FindAsync(id);
 
-        public async Task<CategoriaKM> AddAsync(CategoriaKM entity)
+        public async Task<Categoriaskm> AddAsync(Categoriaskm entity)
         {
             _context.Categorias.Add(entity);
             await _context.SaveChangesAsync();
             return entity;
         }
 
-        public async Task<bool> UpdateAsync(CategoriaKM entity)
+        public async Task<bool> UpdateAsync(Categoriaskm entity)
         {
             _context.Categorias.Update(entity);
             return await _context.SaveChangesAsync() > 0;
